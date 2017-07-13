@@ -2,3 +2,6 @@
 venv
 *.sqlite
 *.egg-info
+.coverage
+.idea
+.cache
