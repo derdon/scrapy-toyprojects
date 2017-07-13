@@ -14,6 +14,8 @@ BOT_NAME = 'zitate'
 SPIDER_MODULES = ['zitate.spiders']
 NEWSPIDER_MODULE = 'zitate.spiders'
 
+DATABASE_NAME = 'zitate.sqlite'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'zitate (+http://www.yourdomain.com)'
@@ -64,9 +66,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'zitate.pipelines.ZitatePipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'zitate.pipelines.ZitateSQLitePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
