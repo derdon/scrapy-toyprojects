@@ -14,7 +14,6 @@ class ZitateSpider(scrapy.Spider):
         author = response.url.rstrip('/').split('/')[-1]
         quotes = response.css(
             '.quote-box .quoteinner .quoteleftinner p::text').extract()
-        self.log('author: {}'.format(author))
         for quote in quotes:
             yield {'author': author, 'quote': quote}
 
