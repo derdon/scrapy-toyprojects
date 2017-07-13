@@ -1,0 +1,7 @@
+[run]
+omit =
+    zitate/test/*
+branch = True
+
+[report]
+precision = 2
