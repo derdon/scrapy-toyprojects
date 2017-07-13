@@ -1,2 +1,2 @@
-flake8 zitate
+flake8 zitate && \
 py.test --cov-config .coveragerc --cov-report term-missing --cov zitate zitate/test
