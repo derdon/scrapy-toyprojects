@@ -1,6 +1,7 @@
 [run]
 omit =
     zitate/test/*
+    zitate/settings.py
 branch = True
 
 [report]
