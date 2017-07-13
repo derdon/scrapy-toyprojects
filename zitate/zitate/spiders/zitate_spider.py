@@ -1,3 +1,5 @@
+import urlparse
+
 import scrapy
 
 
