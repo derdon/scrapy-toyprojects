@@ -24,7 +24,9 @@ class ZitateSQLitePipeline(object):
     def process_item(self, item, spider):
         # make sure the table exists in the database, create if necessary
         self.db.execute(
-                'CREATE TABLE IF NOT EXISTS zitate (author text, zitat text);')
-        self.db.execute('INSERT INTO zitate VALUES (?, ?)', (item['author'], item['quote']))
+            'CREATE TABLE IF NOT EXISTS zitate (author text, zitat text);')
+        self.db.execute(
+            'INSERT INTO zitate VALUES (?, ?)',
+            (item['author'], item['quote']))
         self.db.commit()
         return item
