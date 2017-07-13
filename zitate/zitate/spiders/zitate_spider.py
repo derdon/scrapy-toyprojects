@@ -1,6 +1,8 @@
-import urlparse
+import urllib.parse as urlparse
 
 import scrapy
+
+from zitate.items import ZitateItem
 
 
 class ZitateSpider(scrapy.Spider):
@@ -11,14 +13,13 @@ class ZitateSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        author = response.url.rstrip('/').split('/')[-1]
+        author = get_author(response.url)
         quotes = response.css(
             '.quote-box .quoteinner .quoteleftinner p::text').extract()
         for quote in quotes:
-            yield {'author': author, 'quote': quote}
+            yield ZitateItem(author=author, quote=quote)
 
         cur_page_number = get_page_number(response.url)
-
         next_page = response.css('.next a::attr(href)').extract_first()
         next_page_number = None
         if next_page is not None:
@@ -28,6 +29,10 @@ class ZitateSpider(scrapy.Spider):
         # if there are no following pages left
         if next_page_number != cur_page_number:
             yield response.follow(next_page, callback=self.parse)
+
+
+def get_author(url):
+    return urlparse.unquote_plus(urlparse.urlparse(url).path.split('/')[-1])
 
 
 def get_page_number(url):
