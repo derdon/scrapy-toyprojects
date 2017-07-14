@@ -1,5 +1,8 @@
 from string import ascii_uppercase as letters
-import urllib.parse as urlparse
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 import scrapy
 
