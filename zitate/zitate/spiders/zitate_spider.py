@@ -1,8 +1,9 @@
 from string import ascii_uppercase as letters
+
 try:
-    import urllib.parse as urlparse
+    from urllib.parse import urlparse, parse_qs, unquote_plus
 except ImportError:
-    import urlparse
+    from urlparse import urlparse, parse_qs, unquote_plus
 
 import scrapy
 
@@ -45,12 +46,12 @@ class ZitateSpider(scrapy.Spider):
 
 
 def get_author(url):
-    return urlparse.unquote_plus(urlparse.urlparse(url).path.split('/')[-1])
+    return unquote_plus(urlparse(url).path.split('/')[-1])
 
 
 def get_page_number(url):
     'Return the value for the parameter `page` in a URL like `?page=PAGE`'
-    page_numbers = urlparse.parse_qs(urlparse.urlparse(url).query).get('page')
+    page_numbers = parse_qs(urlparse(url).query).get('page')
     if page_numbers is not None:
         return page_numbers[0]
     return ''
