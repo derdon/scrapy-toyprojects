@@ -1,4 +1,4 @@
-pyscrape
+scrapy
 flake8
 pytest
 pytest-cov
