@@ -11,5 +11,5 @@ setup(
     author='Simon Liedtke',
     author_email='sliedtke@uni-bremen.de',
     url=URL,
-    packages=['zitate'],
+    packages=['zitate', 'zitate.spiders'],
 )
