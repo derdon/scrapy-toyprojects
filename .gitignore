@@ -1,5 +1,6 @@
 *.pyc
 venv
+venv-python2
 *.sqlite
 *.egg-info
 .coverage
