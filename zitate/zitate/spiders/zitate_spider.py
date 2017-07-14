@@ -1,3 +1,4 @@
+from string import ascii_uppercase as letters
 import urllib.parse as urlparse
 
 import scrapy
@@ -8,11 +9,11 @@ from zitate.items import ZitateItem
 class ZitateSpider(scrapy.Spider):
     name = 'zitate'
     start_urls = [
-        'http://www.zitate.de/autor/Adams%2C+Scott',
-        'http://www.zitate.de/autor/Allen%2C+Woody',
+        'http://www.zitate.de/autoren'
     ]
 
-    def parse(self, response):
+    def parse_author(self, response):
+        'Parse pages like /autor/Engelhardt%2C+Nicole'
         author = get_author(response.url)
         quotes = response.css(
             '.quote-box .quoteinner .quoteleftinner p::text').extract()
@@ -29,6 +30,15 @@ class ZitateSpider(scrapy.Spider):
         # if there are no following pages left
         if next_page_number != cur_page_number:
             yield response.follow(next_page, callback=self.parse)
+
+    def parse(self, response):
+        'Collect all links to authors and parse them via parse_author'
+        css_format = '#fragment-{} .row .span4 ul li a::attr(href)'
+        css_codes = [css_format.format(letter) for letter in letters]
+        for css in css_codes:
+            authors = response.css(css)
+            for author in authors:
+                yield response.follow(author, callback=self.parse_author)
 
 
 def get_author(url):
