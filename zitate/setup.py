@@ -12,4 +12,5 @@ setup(
     author_email='sliedtke@uni-bremen.de',
     url=URL,
     packages=['zitate', 'zitate.spiders'],
+    entry_points = {'scrapy': ['settings = zitate.settings']},
 )
