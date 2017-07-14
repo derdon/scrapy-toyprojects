@@ -24,6 +24,11 @@ class ZitateSpider(scrapy.Spider):
     def parse_author(self, response):
         'Parse pages like /autor/Engelhardt%2C+Nicole'
         author = get_author(response.url)
+        try:
+            author = author.decode('utf-8')
+        except AttributeError:
+            # on Python 3, it'll already be the right type, ignore this
+            pass
         quotes = response.css(
             '.quote-box .quoteinner .quoteleftinner p::text').extract()
         for quote in quotes:
