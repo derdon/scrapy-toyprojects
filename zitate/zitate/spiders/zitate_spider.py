@@ -1,9 +1,14 @@
 from string import ascii_uppercase as letters
 
 try:
-    from urllib.parse import urlparse, parse_qs, unquote_plus
+    from urllib.parse import urlparse, parse_qs
 except ImportError:
-    from urlparse import urlparse, parse_qs, unquote_plus
+    from urlparse import urlparse, parse_qs
+
+try:
+    from urllib.parse import unquote_plus
+except ImportError:
+    from urllib import unquote_plus
 
 import scrapy
 
